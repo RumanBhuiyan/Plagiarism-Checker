@@ -1,0 +1,10 @@
+#HomeVector {
+  background-image: url("../images/plagiarism4.jpg");
+  background-repeat: no-repeat;
+  /* making responsive image */
+  background-size: 100% 100%;
+  height: 45rem;
+  overflow: hidden;
+  justify-content: center;
+  font-family: Lobster;
+}
