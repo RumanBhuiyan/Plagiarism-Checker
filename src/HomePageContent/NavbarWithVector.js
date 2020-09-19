@@ -1,12 +1,12 @@
 import React from "react";
 import "./HomePageDesign.css";
 import PlagiarismImg from "../images/plagiarism1.PNG";
+import { NavLink, BrowserRouter } from "react-router-dom";
 
 function NavbarWithVector() {
   return (
     <div className="container-fluid" id="HomeVector">
       <div className="row justify-content-center">
-        {/* <div className="col-5"> */}
         <img
           className="navbar-brand"
           width="200px"
@@ -15,17 +15,17 @@ function NavbarWithVector() {
           alt="App Logo"
         />
       </div>
-      {/* </div> */}
+
       <div className="row justify-content-center">
-        <a className="myNavBar" href="/">
+        <NavLink className="myNavBar" to="/">
           Home
-        </a>
-        <a className="myNavBar" href="/offline">
+        </NavLink>
+        <NavLink className="myNavBar" to="/offline">
           OfflineCheck
-        </a>
-        <a className="myNavBar" href="/online">
+        </NavLink>
+        <NavLink className="myNavBar" to="/online">
           OnlineCheck
-        </a>
+        </NavLink>
       </div>
     </div>
   );
