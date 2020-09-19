@@ -28,3 +28,23 @@
   /* background: linear-gradient(to right, #ff0099, #493240); */
   /* background: linear-gradient(to right, #ff416c, #ff4b2b); */
 }
+#middlediv {
+  overflow: hidden;
+  background-image: url("../images/plagiarism7.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 40rem;
+}
+#quotediv {
+  background-color: #222831;
+  /* color: aliceblue; */
+  color: goldenrod;
+}
+#mywritting {
+  text-align: center;
+  /* font-family: Lobster; */
+  font-family: Monaco;
+  letter-spacing: 1px;
+  font-size: 20px;
+  margin-top: 10px;
+}

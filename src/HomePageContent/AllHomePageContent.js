@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import NavbarWithVector from "./NavbarWithVector";
 import gsap from "gsap";
+import MiddlePart from "./MiddlePart";
 
 function AllHomePageContent() {
   useEffect(() => {
@@ -10,6 +11,7 @@ function AllHomePageContent() {
   return (
     <div className="vectordiv">
       <NavbarWithVector />
+      <MiddlePart />
     </div>
   );
 }
