@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import NavbarWithVector from "./HomePageContent/NavbarWithVector";
+import AllHomePageContent from "./HomePageContent/AllHomePageContent";
+import Spinner from "./AppSpinner/Spinner";
 
 function App() {
-  return (
+  const [spinner, setSpinner] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSpinner(false);
+    }, 2000);
+  }, []);
+
+  return spinner ? (
+    <Spinner />
+  ) : (
     <div>
-      <NavbarWithVector />
+      <AllHomePageContent />
     </div>
   );
 }

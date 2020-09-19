@@ -5,25 +5,27 @@ import PlagiarismImg from "../images/plagiarism1.PNG";
 function NavbarWithVector() {
   return (
     <div className="container-fluid" id="HomeVector">
-      <div className="row">
-        {/* vector under navbar  */}
-        <div className="col-6 justify-content-center sticky-top">
-          <img
-            className="rounded-circle"
-            width="200px"
-            height="75px"
-            src={PlagiarismImg}
-            alt="Logo"
-          />
-        </div>
-        <div className="col-6">
-          {/* navbar of home page */}
-          <ol id="mylist">
-            <li className="float-left">Home</li>
-            <li className="float-left">Home</li>
-            <li className="float-left">Home</li>
-          </ol>
-        </div>
+      <div className="row justify-content-center">
+        {/* <div className="col-5"> */}
+        <img
+          className="navbar-brand"
+          width="200px"
+          height="75px"
+          src={PlagiarismImg}
+          alt="App Logo"
+        />
+      </div>
+      {/* </div> */}
+      <div className="row justify-content-center">
+        <a className="myNavBar" href="/">
+          Home
+        </a>
+        <a className="myNavBar" href="/offline">
+          OfflineCheck
+        </a>
+        <a className="myNavBar" href="/online">
+          OnlineCheck
+        </a>
       </div>
     </div>
   );

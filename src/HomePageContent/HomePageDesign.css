@@ -8,3 +8,23 @@
   justify-content: center;
   font-family: Lobster;
 }
+
+.myNavBar {
+  margin-left: 5px;
+  padding: 8px;
+  font-size: 18px;
+  text-decoration: none !important;
+  border-radius: 30px;
+  color: #2c5364;
+  border: 1px solid grey;
+}
+.myNavBar:hover {
+  text-decoration: none;
+  color: aliceblue;
+  background: linear-gradient(to right, #b24592, #f15f79);
+  /* background: linear-gradient(to right, #c33764, #1d2671); */
+  /* background: linear-gradient(to right, #283c86, #45a247); */
+  /* background: linear-gradient(to right, #da4453, #89216b); */
+  /* background: linear-gradient(to right, #ff0099, #493240); */
+  /* background: linear-gradient(to right, #ff416c, #ff4b2b); */
+}
