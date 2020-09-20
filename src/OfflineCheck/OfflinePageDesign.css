@@ -21,3 +21,9 @@
   color: aliceblue;
   background: linear-gradient(to right, #b24592, #f15f79);
 }
+#offlineDiv {
+  background-image: url("../images/plagiarism9.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 30rem;
+}

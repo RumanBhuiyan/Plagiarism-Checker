@@ -24,6 +24,7 @@ textarea {
   background: linear-gradient(to right, #ec008c, #fc6767);
   color: aliceblue;
   box-shadow: -14px 10px 7px 0px black;
+  cursor: pointer;
 }
 .myBtn:hover {
   box-shadow: none;

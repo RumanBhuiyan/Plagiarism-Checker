@@ -6,7 +6,7 @@ import FileIcon from "../images/fileIcon.png";
 function OfflinePageForm() {
   return (
     <div className="overflow-hidden">
-      <div className="container-fluid overflow-hidden" id="onlinediv">
+      <div className="container-fluid overflow-hidden" id="offlineDiv">
         <div className="row justify-content-center" id="onlineForm">
           <textarea
             className="form-control  text-center"
