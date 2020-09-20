@@ -1,7 +1,7 @@
 import React from "react";
 import "./HomePageDesign.css";
 import PlagiarismImg from "../images/plagiarism1.PNG";
-import { NavLink, BrowserRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function NavbarWithVector() {
   return (

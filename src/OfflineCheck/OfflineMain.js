@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import "./OfflinePageDesign.css";
+import OfflinePageVector from "./OfflineVectorWithNav";
+import OfflinePageForm from "./OfflinePageForm";
+import gsap from "gsap";
 
 function OfflineMain() {
+  useEffect(() => {
+    gsap.from(".offline", { marginTop: -200, opacity: 0, duration: 1 });
+  }, []);
+
   return (
-    <div>
-      <h2>Offline Main Page</h2>
+    <div className="offline">
+      <OfflinePageVector />
+      <OfflinePageForm />
     </div>
   );
 }
