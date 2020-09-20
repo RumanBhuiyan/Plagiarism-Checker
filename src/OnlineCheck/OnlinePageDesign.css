@@ -21,3 +21,22 @@
   color: aliceblue;
   background: linear-gradient(to right, #b24592, #f15f79);
 }
+#onlinediv {
+  background-image: url("../images/plagiarism8.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 30rem;
+}
+
+#onlineForm {
+  margin: 0 auto;
+  height: 20rem;
+  margin-top: 8rem;
+  background-color: grey;
+  border-radius: 8px;
+  box-shadow: -14px 10px 7px 0px #ff0099;
+}
+#onlineForm:hover {
+  box-shadow: none;
+  transition: 0.5s;
+}

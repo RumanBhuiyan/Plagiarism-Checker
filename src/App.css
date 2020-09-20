@@ -1,0 +1,40 @@
+textarea {
+  resize: none;
+  margin-top: 55px;
+  outline: none;
+  border: none;
+  border-radius: 12px;
+  width: 10rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: -60px;
+  font-family: Lobster;
+  font-size: 20px !important;
+  overflow: ellipsis;
+}
+.myBtn {
+  height: 2.5rem;
+  width: auto;
+  margin-top: 40px;
+  margin-left: 1.5rem;
+  font-family: Lobster;
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px;
+  background: linear-gradient(to right, #ec008c, #fc6767);
+  color: aliceblue;
+  box-shadow: -14px 10px 7px 0px black;
+}
+.myBtn:hover {
+  box-shadow: none;
+  transform: scaleX(1.2);
+  transition: 0.5s;
+  background: linear-gradient(to right, #b24592, #f15f79);
+}
+input {
+  opacity: 0;
+  border: none;
+  outline: none;
+  width: 2rem;
+  border-radius: 12px;
+}

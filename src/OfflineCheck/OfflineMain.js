@@ -6,7 +6,13 @@ import gsap from "gsap";
 
 function OfflineMain() {
   useEffect(() => {
-    gsap.from(".offline", { marginTop: -200, opacity: 0, duration: 1 });
+    setTimeout(async () => {
+      await gsap.from(".offline", { marginTop: -200, opacity: 0, duration: 1 });
+      window.scrollTo({
+        top: 1200,
+        behavior: "smooth",
+      });
+    });
   }, []);
 
   return (
