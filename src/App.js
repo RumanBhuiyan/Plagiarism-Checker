@@ -5,6 +5,8 @@ import Spinner from "./AppSpinner/Spinner";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import OfflineMainPage from "./OfflineCheck/OfflineMain";
 import OnlineMainPage from "./OnlineCheck/OnlineCheck";
+import OfflineChart from "./OfflineCheck/OfflineChart";
+import OnlineChart from "./OnlineCheck/OnlineChart";
 
 function App() {
   const [spinner, setSpinner] = useState(true);
@@ -20,11 +22,17 @@ function App() {
   ) : (
     <BrowserRouter>
       <Switch>
-        <Route path="/offline">
+        <Route exact path="/offline">
           <OfflineMainPage />
         </Route>
-        <Route path="/online">
+        <Route exact path="/online">
           <OnlineMainPage />
+        </Route>
+        <Route path="/offlinechart">
+          <OfflineChart />
+        </Route>
+        <Route path="/onlinechart">
+          <OnlineChart />
         </Route>
         <Route path="/*">
           <AllHomePageContent />

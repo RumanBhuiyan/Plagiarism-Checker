@@ -2,8 +2,11 @@ import React from "react";
 import "./OnlinePageDesign.css";
 import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
+import { useHistory } from "react-router-dom";
 
 function OnlinePageForm() {
+  const history = useHistory();
+
   return (
     <div className="overflow-hidden">
       <div className="container-fluid overflow-hidden" id="onlinediv">
@@ -24,7 +27,12 @@ function OnlinePageForm() {
               name="myFiles"
             />
           </button>
-          <button className="myBtn">Check Plagiarism</button>
+          <button
+            className="myBtn"
+            onClick={() => history.push("/onlinechart")}
+          >
+            Check Plagiarism
+          </button>
         </div>
       </div>
       <div

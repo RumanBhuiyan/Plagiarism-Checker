@@ -2,8 +2,11 @@ import React from "react";
 import "./OfflinePageDesign.css";
 import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
+import { useHistory } from "react-router-dom";
 
 function OfflinePageForm() {
+  const history = useHistory();
+
   return (
     <div className="overflow-hidden">
       <div className="container-fluid overflow-hidden" id="offlineDiv">
@@ -25,7 +28,12 @@ function OfflinePageForm() {
               multiple
             />
           </button>
-          <button className="myBtn">Check Plagiarism</button>
+          <button
+            className="myBtn"
+            onClick={() => history.push("/offlinechart")}
+          >
+            Check Plagiarism
+          </button>
         </div>
       </div>
       <div
