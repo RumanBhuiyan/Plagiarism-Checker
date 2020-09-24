@@ -9,6 +9,7 @@ import { MyContext } from "../index";
 import axios from "axios";
 import voca from "voca";
 
+let keepFiles = [];
 function OfflinePageForm() {
   const [filesthings, setFilethings] = useState("");
   const [extractedWords, setExtractedWords] = useState([]);
@@ -23,10 +24,11 @@ function OfflinePageForm() {
     allFilesPieData,
   } = React.useContext(MyContext);
 
-  useEffect(() => {
-    console.log(filesthings.length);
-    console.log(filesthings);
-  }, [filesthings]);
+  // useEffect(() => {
+  //   console.log(filesthings.length);
+  //   console.log(voca.words(filesthings));
+  // }, [filesthings]);
+
   // let keep = "b";
   // let assign = 2;
   //below procedures  works fine
@@ -44,8 +46,13 @@ function OfflinePageForm() {
 
   const readMyFiles = (event) => {
     let myFiles = event.currentTarget.files;
-
+    keepFiles = myFiles;
     //Assigning Different values for different words in encodedKeyValues
+    //firstly read all words from all files and assign them to a variable
+    //secondly extract all words from that variable and take all unique words
+    // to keep in encodedKeyValues[]
+
+    //Reading All Words from all files and storing them to filesthings
     for (let i = 0; i < myFiles.length; i++) {
       let file = myFiles[i];
       if (file.name.endsWith(".docx")) {
@@ -86,6 +93,7 @@ function OfflinePageForm() {
         };
       }
     }
+    //Extracting all words from filesthings using voca
 
     //using encodedKeyValues object place all y values of graph in graphData[]
 
@@ -106,6 +114,70 @@ function OfflinePageForm() {
     //Displaying all file names in text-area field
     let keep = document.getElementById("offlineTextArea");
     keep.placeholder = combineAllNames;
+  };
+
+  const AssignOtherValues = () => {
+    //extracting all words and assigning only unique words to encodedKeyValues
+    let allWords = voca.words(filesthings);
+    for (let i = 0; i < allWords.length; i++) {
+      if (encodedKeyValues.indexOf(allWords[i]) === -1) {
+        encodedKeyValues.push(allWords[i]);
+      }
+    }
+    // Read files and stores words value in graphData[]
+    for (let i = 0; i < keepFiles.length; i++) {
+      let file = keepFiles[i];
+      if (file.name.endsWith(".docx")) {
+        //creating file data to send back-end
+        let formdata = new FormData();
+        formdata.append("file", file);
+
+        axios
+          .post("http://localhost:3001/docx", formdata)
+          .then((res) => {
+            let words = voca.words(res.data);
+            let keepValues = [];
+            for (let i = 0; i < words.length; i++) {
+              keepValues.push(encodedKeyValues.indexOf(words[i]));
+            }
+            graphData.push(keepValues);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else if (file.name.endsWith(".pdf")) {
+        let formdata = new FormData();
+        formdata.append("file", file);
+
+        axios
+          .post("http://localhost:3001/pdf", formdata)
+          .then((res) => {
+            let words = voca.words(res.data);
+            let keepValues = [];
+            for (let i = 0; i < words.length; i++) {
+              keepValues.push(encodedKeyValues.indexOf(words[i]));
+            }
+            graphData.push(keepValues);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        //the file might be .txt or code files
+        let file = keepFiles[i];
+        const reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.fileName = file.name;
+        reader.onload = (event) => {
+          let words = voca.words(event.currentTarget.result);
+          let keepValues = [];
+          for (let i = 0; i < words.length; i++) {
+            keepValues.push(encodedKeyValues.indexOf(words[i]));
+          }
+          graphData.push(keepValues);
+        };
+      }
+    }
   };
 
   return (
@@ -134,6 +206,7 @@ function OfflinePageForm() {
           <button
             className="myBtn"
             onClick={() => {
+              AssignOtherValues();
               history.push("/offlinechart");
             }}
           >

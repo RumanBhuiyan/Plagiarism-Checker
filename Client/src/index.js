@@ -8,8 +8,8 @@ const MyProvider = MyContext.Provider;
 //const MyConsumer = MyContext.Consumer;
 
 let filesNames = [];
-let encodedKeyValues = { a: 1 };
-let graphData = [1, 2];
+let encodedKeyValues = [];
+let graphData = [];
 let averagePieData = [3, 4];
 let allFilesPieData = [5, 6];
 
