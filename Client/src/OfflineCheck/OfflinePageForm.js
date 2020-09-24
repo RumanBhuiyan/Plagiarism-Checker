@@ -1,12 +1,18 @@
-import React from "react";
+/* eslint-disable */
+//removes warnings of defined but never used
+import React, { useState, useEffect } from "react";
 import "./OfflinePageDesign.css";
 import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
 import { useHistory } from "react-router-dom";
 import { MyContext } from "../index";
 import axios from "axios";
+import voca from "voca";
 
 function OfflinePageForm() {
+  const [filesthings, setFilethings] = useState("");
+  const [extractedWords, setExtractedWords] = useState([]);
+
   const history = useHistory();
 
   const {
@@ -17,6 +23,10 @@ function OfflinePageForm() {
     allFilesPieData,
   } = React.useContext(MyContext);
 
+  useEffect(() => {
+    console.log(filesthings.length);
+    console.log(filesthings);
+  }, [filesthings]);
   // let keep = "b";
   // let assign = 2;
   //below procedures  works fine
@@ -27,13 +37,17 @@ function OfflinePageForm() {
   // averagePieData.push(200);
   // allFilesPieData.push(300);
 
+  // const keepWord = (wordList) => {
+  //   console.log(wordList.length);
+  //   console.log(wordList);
+  // };
+
   const readMyFiles = (event) => {
     let myFiles = event.currentTarget.files;
 
     //Assigning Different values for different words in encodedKeyValues
     for (let i = 0; i < myFiles.length; i++) {
       let file = myFiles[i];
-      let fileContent = "";
       if (file.name.endsWith(".docx")) {
         //creating file data to send back-end
         let formdata = new FormData();
@@ -42,7 +56,7 @@ function OfflinePageForm() {
         axios
           .post("http://localhost:3001/docx", formdata)
           .then((res) => {
-            fileContent = res.data;
+            setFilethings((filesthings) => filesthings + " " + res.data);
           })
           .catch((error) => {
             console.log(error);
@@ -54,7 +68,7 @@ function OfflinePageForm() {
         axios
           .post("http://localhost:3001/pdf", formdata)
           .then((res) => {
-            console.log(res.data);
+            setFilethings((filesthings) => filesthings + " " + res.data);
           })
           .catch((error) => {
             console.log(error);
@@ -66,11 +80,13 @@ function OfflinePageForm() {
         reader.readAsBinaryString(file);
         reader.fileName = file.name;
         reader.onload = (event) => {
-          fileContent = event.currentTarget.result;
-          console.log(fileContent);
+          setFilethings(
+            (filesthings) => filesthings + " " + event.currentTarget.result
+          );
         };
       }
     }
+
     //using encodedKeyValues object place all y values of graph in graphData[]
 
     //two nested for loop to assign values like [[{},{}],[{},{}]]
