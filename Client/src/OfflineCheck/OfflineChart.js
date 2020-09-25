@@ -1,7 +1,9 @@
 import React from "react";
 import { MyContext } from "../index";
+import { useHistory } from "react-router-dom";
 
 function OfflineChart() {
+  let history = useHistory();
   const {
     filesNames,
     encodedKeyValues,
@@ -18,7 +20,11 @@ function OfflineChart() {
 
   return (
     <div>
-      <h1>Offline Chart </h1>
+      <div className="container-fluid bg-dark offlineNavDiv">
+        <button onClick={() => history.push("/offline")}>Go Back</button>
+        <button onClick={() => history.push("/")}>Home</button>
+        <button onClick={() => history.push("/online")}>OnlineCheck</button>
+      </div>
     </div>
   );
 }

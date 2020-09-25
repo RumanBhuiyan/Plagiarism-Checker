@@ -1,6 +1,5 @@
 /* eslint-disable */
-//removes warnings of defined but never used
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./OfflinePageDesign.css";
 import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
@@ -24,33 +23,9 @@ function OfflinePageForm() {
     allFilesPieData,
   } = React.useContext(MyContext);
 
-  // useEffect(() => {
-  //   console.log(filesthings.length);
-  //   console.log(voca.words(filesthings));
-  // }, [filesthings]);
-
-  // let keep = "b";
-  // let assign = 2;
-  //below procedures  works fine
-  //Object.assign(encodedKeyValues, { [keep]: assign });
-  // encodedKeyValues[keep] = assign;
-
-  // graphData.push(100);
-  // averagePieData.push(200);
-  // allFilesPieData.push(300);
-
-  // const keepWord = (wordList) => {
-  //   console.log(wordList.length);
-  //   console.log(wordList);
-  // };
-
   const readMyFiles = (event) => {
     let myFiles = event.currentTarget.files;
     keepFiles = myFiles;
-    //Assigning Different values for different words in encodedKeyValues
-    //firstly read all words from all files and assign them to a variable
-    //secondly extract all words from that variable and take all unique words
-    // to keep in encodedKeyValues[]
 
     //Reading All Words from all files and storing them to filesthings
     for (let i = 0; i < myFiles.length; i++) {
@@ -93,14 +68,6 @@ function OfflinePageForm() {
         };
       }
     }
-    //Extracting all words from filesthings using voca
-
-    //using encodedKeyValues object place all y values of graph in graphData[]
-
-    //two nested for loop to assign values like [[{},{}],[{},{}]]
-    //[[{filename:'',plagiarisedPercentage:'',copiedPortion:''}]]
-    //after completing one file pus average copied portion in averagePieData[]
-
     //Collecting files names into an array
     for (let i = 0; i < myFiles.length; i++) {
       let file = myFiles[i];
@@ -189,7 +156,7 @@ function OfflinePageForm() {
       }
     }
     //All Files Pie Data insertion
-    //immediately codes below dont work but in this way everything works fine
+    //immediately codes  dont work but in this way everything works fine
     let copied = "";
     setTimeout(() => {
       for (let i = 0; i < filesData.length; i++) {
@@ -210,9 +177,7 @@ function OfflinePageForm() {
               },
             })
               .then((res) => {
-                //console.log(res.data);
                 copied = res.data;
-                //console.log("hey");
               })
               .catch((error) => {
                 console.log(error);

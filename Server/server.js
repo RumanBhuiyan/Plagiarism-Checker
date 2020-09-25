@@ -6,7 +6,7 @@ const jsdiff = require("diff");
 //using bodyParser to receive requser body information
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //if you dont use it then req.body will be {} empty
 
 //cors enabling so that client requests dont be rejected by server
 const cors = require("cors");
