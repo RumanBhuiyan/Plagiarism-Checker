@@ -220,17 +220,22 @@ function OfflinePageForm() {
             setTimeout(() => {
               eachFileData.push({
                 name: filesData[j].name,
-                similarity: stringSimilarity.compareTwoStrings(
-                  filesData[i].content,
-                  filesData[j].content
-                ),
+                similarity:
+                  stringSimilarity
+                    .compareTwoStrings(
+                      filesData[i].content,
+                      filesData[j].content
+                    )
+                    .toFixed(4) * 100,
                 copiedpart: copied,
               });
             }, 1000);
           }
         }
         allFilesPieData.push(eachFileData);
-        averagePieData.push(keepSimilarity / filesData.length);
+        averagePieData.push(
+          (keepSimilarity / filesData.length).toFixed(4) * 100
+        );
       }
     }, 1000);
   };
