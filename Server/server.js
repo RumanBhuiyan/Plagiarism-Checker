@@ -1,6 +1,7 @@
 const fs = require("fs");
 const express = require("express");
 const app = express();
+const jsdiff = require("diff");
 
 //using bodyParser to receive requser body information
 const bodyParser = require("body-parser");
@@ -38,6 +39,17 @@ app.post("/pdf", (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+app.post("/diffwords", (req, res) => {
+  let diffResult = jsdiff.diffWords(req.body.content1, req.body.content2);
+  let copiedpart = "";
+  for (let i = 0; i < diffResult.length; i++) {
+    if (Object.keys(diffResult[i]).length === 2) {
+      copiedpart += diffResult[i].value;
+    }
+  }
+  res.send(copiedpart);
 });
 
 app.listen(3001, () => {

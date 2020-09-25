@@ -8,12 +8,12 @@ import { useHistory } from "react-router-dom";
 import { MyContext } from "../index";
 import axios from "axios";
 import voca from "voca";
+import stringSimilarity from "string-similarity";
 
 let keepFiles = [];
+let filesData = [];
 function OfflinePageForm() {
   const [filesthings, setFilethings] = useState("");
-  const [extractedWords, setExtractedWords] = useState([]);
-
   const history = useHistory();
 
   const {
@@ -118,6 +118,7 @@ function OfflinePageForm() {
 
   const AssignOtherValues = () => {
     //extracting all words and assigning only unique words to encodedKeyValues
+    setFilethings(filesthings.toLocaleLowerCase());
     let allWords = voca.words(filesthings);
     for (let i = 0; i < allWords.length; i++) {
       if (encodedKeyValues.indexOf(allWords[i]) === -1) {
@@ -135,6 +136,8 @@ function OfflinePageForm() {
         axios
           .post("http://localhost:3001/docx", formdata)
           .then((res) => {
+            filesData.push({ name: file.name, content: res.data });
+
             let words = voca.words(res.data);
             let keepValues = [];
             for (let i = 0; i < words.length; i++) {
@@ -152,6 +155,8 @@ function OfflinePageForm() {
         axios
           .post("http://localhost:3001/pdf", formdata)
           .then((res) => {
+            filesData.push({ name: file.name, content: res.data });
+
             let words = voca.words(res.data);
             let keepValues = [];
             for (let i = 0; i < words.length; i++) {
@@ -169,6 +174,11 @@ function OfflinePageForm() {
         reader.readAsBinaryString(file);
         reader.fileName = file.name;
         reader.onload = (event) => {
+          filesData.push({
+            name: file.name,
+            content: event.currentTarget.result,
+          });
+
           let words = voca.words(event.currentTarget.result);
           let keepValues = [];
           for (let i = 0; i < words.length; i++) {
@@ -178,6 +188,51 @@ function OfflinePageForm() {
         };
       }
     }
+    //All Files Pie Data insertion
+    //immediately codes below dont work but in this way everything works fine
+    let copied = "";
+    setTimeout(() => {
+      for (let i = 0; i < filesData.length; i++) {
+        let keepSimilarity = 0;
+        let eachFileData = [];
+        for (let j = 0; j < filesData.length; j++) {
+          if (filesData[i].name !== filesData[j].name) {
+            keepSimilarity += stringSimilarity.compareTwoStrings(
+              filesData[i].content,
+              filesData[j].content
+            );
+            axios({
+              method: "post",
+              url: "http://localhost:3001/diffwords",
+              data: {
+                content1: filesData[i].content,
+                content2: filesData[j].content,
+              },
+            })
+              .then((res) => {
+                //console.log(res.data);
+                copied = res.data;
+                //console.log("hey");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+            setTimeout(() => {
+              eachFileData.push({
+                name: filesData[j].name,
+                similarity: stringSimilarity.compareTwoStrings(
+                  filesData[i].content,
+                  filesData[j].content
+                ),
+                copiedpart: copied,
+              });
+            }, 1000);
+          }
+        }
+        allFilesPieData.push(eachFileData);
+        averagePieData.push(keepSimilarity / filesData.length);
+      }
+    }, 1000);
   };
 
   return (
@@ -207,7 +262,9 @@ function OfflinePageForm() {
             className="myBtn"
             onClick={() => {
               AssignOtherValues();
-              history.push("/offlinechart");
+              setTimeout(() => {
+                history.push("/offlinechart");
+              }, 2000);
             }}
           >
             Check Plagiarism

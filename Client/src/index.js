@@ -10,8 +10,8 @@ const MyProvider = MyContext.Provider;
 let filesNames = [];
 let encodedKeyValues = [];
 let graphData = [];
-let averagePieData = [3, 4];
-let allFilesPieData = [5, 6];
+let averagePieData = []; //array of objects
+let allFilesPieData = []; //array of objects
 
 ReactDOM.render(
   <MyProvider
