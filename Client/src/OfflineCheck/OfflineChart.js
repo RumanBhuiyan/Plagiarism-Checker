@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import Chart from "chart.js";
 import randomcolor from "randomcolor";
 
+let individualCanvases = [];
 function OfflineChart() {
   let history = useHistory();
   const {
@@ -15,11 +16,11 @@ function OfflineChart() {
     allFilesPieData,
   } = React.useContext(MyContext);
 
-  console.log(filesNames);
-  console.log(encodedKeyValues);
-  console.log(graphData);
-  console.log(averagePieData);
-  console.log(allFilesPieData);
+  // console.log(filesNames);
+  // console.log(encodedKeyValues);
+  // console.log(graphData);
+  // console.log(averagePieData);
+  //console.log(allFilesPieData);
 
   useEffect(() => {
     let graphDatasets = [];
@@ -114,7 +115,8 @@ function OfflineChart() {
         },
         title: {
           display: true,
-          text: "Percentage of Plagiarism in Bar Diagram",
+          text:
+            "Average Percentage of Plagiarism among all files in Bar Diagram",
           fontFamily: "Lobster",
           fontSize: 25,
           fontColor: "#c31432",
@@ -141,7 +143,68 @@ function OfflineChart() {
         },
       },
     });
+    // Individuals pie charts
+    // setTimeout(() => {
+    //   for (let i = 0; i < allFilesPieData.length; i++) {
+    //     let xLabels = [];
+    //     let yLabels = [];
+    //     let copiedPart = "";
+    //     for (let j = 0; j < allFilesPieData[i].length; j++) {
+    //       xLabels.push(allFilesPieData[i][j].name);
+    //       yLabels.push(allFilesPieData[i][j].similarity);
+    //       copiedPart += ` ${allFilesPieData[i][j].name} : ${allFilesPieData[i][j].copiedpart} \n `;
+    //     }
+    //     individualCanvases.push(
+    //       <div className="container-fluid justify-content-center">
+    //         <canvas id={filesNames[i]}></canvas>
+    //         <button onClick={() => handleClick(`${filesNames[i]}+copy`)}>
+    //           Show CopiedPart
+    //         </button>
+    //         <div id={`${filesNames[i]}+copy`}>{copiedPart}</div>
+    //       </div>
+    //     );
+
+    //     let myInterval = setInterval(() => {
+    //       if (document.getElementById(filesNames[i]) !== null) {
+    //         let eachContext = document
+    //           .getElementById(filesNames[i])
+    //           .getContext("2d");
+    //         let eachpiechart = new Chart(eachContext, {
+    //           type: "pie",
+    //           data: {
+    //             labels: xLabels,
+    //             datasets: [
+    //               {
+    //                 data: yLabels,
+    //                 backgroundColor: ["red", "blue", "orange", "green", "pink"],
+    //               },
+    //             ],
+    //           },
+    //           options: {
+    //             title: {
+    //               display: true,
+    //               text: filesNames[i],
+    //               fontFamily: "Lobster",
+    //               fontSize: 25,
+    //               fontColor: "#c31432",
+    //             },
+    //           },
+    //         });
+    //         clearInterval(myInterval);
+    //       }
+    //     }, 500);
+    //   }
+    // }, 2000);
   }, []);
+
+  const handleClick = (id) => {
+    let mydiv = document.getElementById(id);
+    if (mydiv.style.display === "none") {
+      mydiv.style.display = "block";
+    } else {
+      mydiv.style.display = "none";
+    }
+  };
 
   return (
     <div>
@@ -152,6 +215,22 @@ function OfflineChart() {
       </div>
       <canvas id="globalChart" style={{ backgroundColor: "#3345" }}></canvas>
       <canvas id="barChart" style={{ backgroundColor: "#3345" }}></canvas>
+      {/* individuals pie charts  */}
+      {filesNames.map((item) => {
+        return (
+          <div className="container-fluid justify-content-center individualDiv">
+            <canvas id={item}></canvas>
+            <div className="row justify-content-center text-center">
+              <button onClick={() => handleClick(`${item}+copytext`)}>
+                Show CopiedPart
+              </button>
+            </div>
+            <div className="copydiv" id={`${item}+copytext`}>
+              hello
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

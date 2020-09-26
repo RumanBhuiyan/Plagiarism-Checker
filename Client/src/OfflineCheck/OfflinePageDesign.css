@@ -49,3 +49,28 @@
   background: linear-gradient(to right, #cb2d3e, #ef473a);
   color: aliceblue;
 }
+.individualDiv button {
+  font-family: Lobster;
+  border: none;
+  outline: none;
+  background: linear-gradient(to right, #00b09b, #96c93d);
+  color: aliceblue;
+  font-size: 20px;
+  border-radius: 40px;
+  height: 35px;
+}
+.individualDiv button:hover {
+  background: black;
+}
+.individualDiv .copydiv {
+  display: none;
+  text-align: center;
+  color: goldenrod;
+  font-family: Lobster;
+  font-size: 20px;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  border-radius: 12px;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-top: 0.2rem;
+}
