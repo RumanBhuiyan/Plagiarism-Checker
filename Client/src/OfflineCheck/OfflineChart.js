@@ -39,6 +39,9 @@ function OfflineChart() {
     }
 
     var ctx = document.getElementById("globalChart");
+    Chart.defaults.global.elements.point.radius = 5;
+    Chart.defaults.global.elements.point.hoverRadius = 8;
+
     var myChart = new Chart(ctx, {
       type: "scatter",
       data: {
@@ -48,6 +51,19 @@ function OfflineChart() {
         tooltips: {
           mode: "index",
           intersect: false,
+        },
+        title: {
+          display: true,
+          text: "All Files Graph",
+          fontFamily: "Lobster",
+          fontSize: 25,
+          fontColor: "#c31432",
+        },
+        legend: {
+          labels: {
+            fontSize: 20,
+            fontFamily: "Lobster",
+          },
         },
         hover: {
           mode: "nearest",
@@ -64,6 +80,67 @@ function OfflineChart() {
         },
       },
     });
+
+    //bar diargram
+    let barGraphDataSets = [];
+    for (let i = 0; i < filesNames.length; i++) {
+      let mydata = [];
+      mydata.push({ x: filesNames[i], y: averagePieData[i] });
+
+      barGraphDataSets.push({
+        label: filesNames[i],
+        data: mydata,
+        showLine: true,
+        fill: true,
+        backgroundColor: randomcolor(),
+        borderColor: "rgba(0, 200, 0, 1)",
+        maxBarThickness: 60,
+      });
+    }
+    let barcontext = document.getElementById("barChart").getContext("2d");
+    let barchart = new Chart(barcontext, {
+      type: "bar",
+
+      data: {
+        datasets: barGraphDataSets,
+      },
+      options: {
+        tooltips: {
+          callbacks: {
+            title: function (tooltipItems, data) {
+              return "";
+            },
+          },
+        },
+        title: {
+          display: true,
+          text: "Percentage of Plagiarism in Bar Diagram",
+          fontFamily: "Lobster",
+          fontSize: 25,
+          fontColor: "#c31432",
+        },
+        legend: {
+          labels: {
+            fontSize: 20,
+            fontFamily: "Lobster",
+          },
+        },
+        hover: {
+          mode: "nearest",
+          intersect: true,
+        },
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                max: 100,
+              },
+            },
+          ],
+        },
+      },
+    });
   }, []);
 
   return (
@@ -73,7 +150,8 @@ function OfflineChart() {
         <button onClick={() => history.push("/")}>Home</button>
         <button onClick={() => history.push("/online")}>OnlineCheck</button>
       </div>
-      <canvas id="globalChart"></canvas>
+      <canvas id="globalChart" style={{ backgroundColor: "#3345" }}></canvas>
+      <canvas id="barChart" style={{ backgroundColor: "#3345" }}></canvas>
     </div>
   );
 }
