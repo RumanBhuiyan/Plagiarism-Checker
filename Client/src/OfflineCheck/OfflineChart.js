@@ -144,57 +144,47 @@ function OfflineChart() {
       },
     });
     // Individuals pie charts
-    // setTimeout(() => {
-    //   for (let i = 0; i < allFilesPieData.length; i++) {
-    //     let xLabels = [];
-    //     let yLabels = [];
-    //     let copiedPart = "";
-    //     for (let j = 0; j < allFilesPieData[i].length; j++) {
-    //       xLabels.push(allFilesPieData[i][j].name);
-    //       yLabels.push(allFilesPieData[i][j].similarity);
-    //       copiedPart += ` ${allFilesPieData[i][j].name} : ${allFilesPieData[i][j].copiedpart} \n `;
-    //     }
-    //     individualCanvases.push(
-    //       <div className="container-fluid justify-content-center">
-    //         <canvas id={filesNames[i]}></canvas>
-    //         <button onClick={() => handleClick(`${filesNames[i]}+copy`)}>
-    //           Show CopiedPart
-    //         </button>
-    //         <div id={`${filesNames[i]}+copy`}>{copiedPart}</div>
-    //       </div>
-    //     );
+    setTimeout(() => {
+      for (let i = 0; i < allFilesPieData.length; i++) {
+        let xLabels = [];
+        let yLabels = [];
+        let copiedPart = "";
+        for (let j = 0; j < allFilesPieData[i].length; j++) {
+          xLabels.push(allFilesPieData[i][j].name);
+          yLabels.push(allFilesPieData[i][j].similarity);
+          copiedPart += ` ${allFilesPieData[i][j].name} : ${allFilesPieData[i][j].copiedpart} \n `;
+        }
 
-    //     let myInterval = setInterval(() => {
-    //       if (document.getElementById(filesNames[i]) !== null) {
-    //         let eachContext = document
-    //           .getElementById(filesNames[i])
-    //           .getContext("2d");
-    //         let eachpiechart = new Chart(eachContext, {
-    //           type: "pie",
-    //           data: {
-    //             labels: xLabels,
-    //             datasets: [
-    //               {
-    //                 data: yLabels,
-    //                 backgroundColor: ["red", "blue", "orange", "green", "pink"],
-    //               },
-    //             ],
-    //           },
-    //           options: {
-    //             title: {
-    //               display: true,
-    //               text: filesNames[i],
-    //               fontFamily: "Lobster",
-    //               fontSize: 25,
-    //               fontColor: "#c31432",
-    //             },
-    //           },
-    //         });
-    //         clearInterval(myInterval);
-    //       }
-    //     }, 500);
-    //   }
-    // }, 2000);
+        document.getElementById(
+          `${filesNames[i]}+copytext`
+        ).textContent = copiedPart;
+
+        let eachContext = document
+          .getElementById(filesNames[i])
+          .getContext("2d");
+        let eachpiechart = new Chart(eachContext, {
+          type: "pie",
+          data: {
+            labels: xLabels,
+            datasets: [
+              {
+                data: yLabels,
+                backgroundColor: ["red", "blue", "orange", "green", "pink"],
+              },
+            ],
+          },
+          options: {
+            title: {
+              display: true,
+              text: filesNames[i],
+              fontFamily: "Lobster",
+              fontSize: 25,
+              fontColor: "#c31432",
+            },
+          },
+        });
+      }
+    }, 2000);
   }, []);
 
   const handleClick = (id) => {
@@ -226,7 +216,7 @@ function OfflineChart() {
               </button>
             </div>
             <div className="copydiv" id={`${item}+copytext`}>
-              hello
+              ''
             </div>
           </div>
         );
