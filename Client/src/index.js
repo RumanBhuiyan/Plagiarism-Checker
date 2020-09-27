@@ -13,7 +13,7 @@ let graphData = [];
 let averagePieData = []; //array of objects
 let allFilesPieData = []; //array of objects
 let onlineLinks = [
-  { similarity: "75%", link: "abcd.com" },
+  { similarity: "75%", link: "https://www.facebook.com/" },
   { similarity: "25%", link: "balsal.com" },
   { similarity: "30%", link: "bokchod.com" },
 ];

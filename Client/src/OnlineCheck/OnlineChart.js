@@ -34,9 +34,12 @@ function OnlineChart() {
 
       {/* Accordions for all copied hyperlinks */}
       <div>
-        {onlineLinks.map((item) => {
+        {onlineLinks.map((item, index) => {
           return (
-            <div className="row justify-content-center text-center overflow-hidden">
+            <div
+              key={index}
+              className="row justify-content-center text-center overflow-hidden"
+            >
               <button className="accordion">
                 Plagiarised
                 <span className="badge">{item.similarity}</span>

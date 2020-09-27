@@ -5,17 +5,65 @@ import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
 import { useHistory } from "react-router-dom";
 import { MyContext } from "../index";
+import axios from "axios";
 
 function OnlinePageForm() {
   const history = useHistory();
 
   const { onlineLinks } = React.useContext(MyContext);
 
+  const readFile = (event) => {
+    let keepFile = event.currentTarget.files[0];
+    let searchingText = "";
+    if (keepFile.name.endsWith(".docx")) {
+      let formdata = new FormData();
+      formdata.append("file", keepFile);
+
+      axios
+        .post("http://localhost:3001/docx", formdata)
+        .then((res) => {
+          searchingText += res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (keepFile.name.endsWith(".pdf")) {
+      let formdata = new FormData();
+      formdata.append("file", keepFile);
+
+      axios
+        .post("http://localhost:3001/pdf", formdata)
+        .then((res) => {
+          searchingText += res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      let file = keepFile;
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
+      reader.fileName = file.name;
+      reader.onload = (event) => {
+        searchingText += event.currentTarget.result;
+      };
+    }
+    setTimeout(() => {
+      let textarea = document.getElementById("onlineText");
+      textarea.value = searchingText;
+    }, 1000);
+  };
+
+  const handleButtonClick = () => {
+    let keeptext = document.getElementById("onlineText").value;
+  };
+
   return (
     <div className="overflow-hidden">
       <div className="container-fluid overflow-hidden" id="onlinediv">
         <div className="row justify-content-center" id="onlineForm">
           <textarea
+            id="onlineText"
             className="form-control  text-center"
             rows="5"
             cols="3"
@@ -28,12 +76,16 @@ function OnlinePageForm() {
               title=" "
               type="file"
               placeholder="Upload File"
-              name="myFiles"
+              name="myFile"
+              onChange={(event) => readFile(event)}
             />
           </button>
           <button
             className="myBtn"
-            onClick={() => history.push("/onlinechart")}
+            onClick={() => {
+              handleButtonClick();
+              history.push("/onlinechart");
+            }}
           >
             Check Plagiarism
           </button>
