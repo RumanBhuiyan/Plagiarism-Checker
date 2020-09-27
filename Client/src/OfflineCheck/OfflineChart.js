@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import Chart from "chart.js";
 import randomcolor from "randomcolor";
 
-let individualCanvases = [];
 function OfflineChart() {
   let history = useHistory();
   const {
@@ -15,12 +14,6 @@ function OfflineChart() {
     averagePieData,
     allFilesPieData,
   } = React.useContext(MyContext);
-
-  // console.log(filesNames);
-  // console.log(encodedKeyValues);
-  // console.log(graphData);
-  // console.log(averagePieData);
-  //console.log(allFilesPieData);
 
   useEffect(() => {
     let graphDatasets = [];
@@ -152,12 +145,20 @@ function OfflineChart() {
         for (let j = 0; j < allFilesPieData[i].length; j++) {
           xLabels.push(allFilesPieData[i][j].name);
           yLabels.push(allFilesPieData[i][j].similarity);
-          copiedPart += ` ${allFilesPieData[i][j].name} : ${allFilesPieData[i][j].copiedpart} \n `;
-        }
+          copiedPart += ` 
+          ${allFilesPieData[i][j].name} : ${allFilesPieData[i][j].copiedpart} 
 
-        document.getElementById(
-          `${filesNames[i]}+copytext`
-        ).textContent = copiedPart;
+          `;
+        }
+        copiedPart += "\n";
+        // document.getElementById(`${filesNames[i]}+copytext`).textContent = (
+        //   <p>{copiedPart}</p>
+        // );
+        let mydiv = document.getElementById(`${filesNames[i]}+copytext`);
+        var myp = document.createElement("p");
+        var myptext = document.createTextNode(copiedPart);
+        myp.appendChild(myptext);
+        mydiv.appendChild(myp);
 
         let eachContext = document
           .getElementById(filesNames[i])
@@ -215,9 +216,7 @@ function OfflineChart() {
                 Show CopiedPart
               </button>
             </div>
-            <div className="copydiv" id={`${item}+copytext`}>
-              ''
-            </div>
+            <div className="copydiv" id={`${item}+copytext`}></div>
           </div>
         );
       })}

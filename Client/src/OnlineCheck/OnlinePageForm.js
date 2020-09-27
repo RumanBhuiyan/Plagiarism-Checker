@@ -1,11 +1,15 @@
+/* eslint-disable */
 import React from "react";
 import "./OnlinePageDesign.css";
 import CopyrightImg from "../images/copyright.png";
 import FileIcon from "../images/fileIcon.png";
 import { useHistory } from "react-router-dom";
+import { MyContext } from "../index";
 
 function OnlinePageForm() {
   const history = useHistory();
+
+  const { onlineLinks } = React.useContext(MyContext);
 
   return (
     <div className="overflow-hidden">

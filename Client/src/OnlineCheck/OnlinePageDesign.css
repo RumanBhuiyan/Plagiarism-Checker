@@ -40,3 +40,74 @@
   box-shadow: none;
   transition: 0.5s;
 }
+.onlineNavDiv {
+  /* height: 60px; */
+  height: auto;
+  color: aliceblue;
+  font-family: Lobster;
+  letter-spacing: 2px;
+  font-size: 20px;
+  justify-content: center;
+  text-align: center;
+}
+.onlineNavDiv button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+}
+.onlineNavDiv button:hover {
+  background: linear-gradient(to right, #ff0099, #493240);
+  color: aliceblue;
+}
+
+.accordion {
+  /* background-color: #eee; */
+  background: linear-gradient(to right, #11998e, #38ef7d);
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none !important;
+  border: none !important;
+  font-size: 20px;
+  font-family: Monaco;
+  transition: 0.4s;
+  overflow: hidden;
+}
+
+.accordion:after {
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.panel {
+  width: 75%;
+  padding: 0 18px;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.panel a {
+  font-family: Monaco;
+  color: aliceblue;
+}
+.panel a:hover {
+  color: aliceblue;
+}
+.badge {
+  font-size: 20px;
+  color: aliceblue;
+  background: linear-gradient(to right, #ee0979, #ff6a00);
+  border-radius: 12px;
+  margin-left: 2rem;
+}

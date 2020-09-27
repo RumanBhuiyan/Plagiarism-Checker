@@ -12,6 +12,11 @@ let encodedKeyValues = [];
 let graphData = [];
 let averagePieData = []; //array of objects
 let allFilesPieData = []; //array of objects
+let onlineLinks = [
+  { similarity: "75%", link: "abcd.com" },
+  { similarity: "25%", link: "balsal.com" },
+  { similarity: "30%", link: "bokchod.com" },
+];
 
 ReactDOM.render(
   <MyProvider
@@ -21,6 +26,7 @@ ReactDOM.render(
       graphData,
       averagePieData,
       allFilesPieData,
+      onlineLinks,
     }}
   >
     <App />
