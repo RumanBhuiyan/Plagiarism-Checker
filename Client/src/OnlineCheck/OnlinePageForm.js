@@ -10,7 +10,7 @@ import axios from "axios";
 function OnlinePageForm() {
   const history = useHistory();
 
-  const { onlineLinks } = React.useContext(MyContext);
+  let { onlineLinks } = React.useContext(MyContext);
 
   const readFile = (event) => {
     let keepFile = event.currentTarget.files[0];
@@ -56,6 +56,20 @@ function OnlinePageForm() {
 
   const handleButtonClick = () => {
     let keeptext = document.getElementById("onlineText").value;
+
+    axios({
+      method: "post",
+      url: "http://localhost:3001/searchonline",
+      data: {
+        text: keeptext,
+      },
+    })
+      .then((res) => {
+        onlineLinks = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

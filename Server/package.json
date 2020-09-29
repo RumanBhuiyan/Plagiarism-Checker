@@ -11,13 +11,23 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "diff": "^4.0.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "fs": "0.0.1-security",
+    "get-urls": "^10.0.0",
+    "got": "^11.7.0",
+    "is-image-url": "^1.1.8",
     "mammoth": "^1.4.13",
+    "node-gyp": "^7.1.0",
     "pdf-parse": "^1.1.1",
-    "pdfreader": "^1.0.7"
+    "pdfreader": "^1.0.7",
+    "query-string": "^6.13.4",
+    "re2": "^1.15.4",
+    "textract": "^2.5.0",
+    "voca": "^1.4.0"
   }
 }

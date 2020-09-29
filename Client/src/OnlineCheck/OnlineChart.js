@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { MyContext } from "../index";
+import voca from "voca";
 
 function OnlineChart() {
   useEffect(() => {
@@ -42,12 +43,19 @@ function OnlineChart() {
             >
               <button className="accordion">
                 Plagiarised
-                <span className="badge">{item.similarity}</span>
+                <span className="badge">
+                  {(voca.words(copied).length / voca.words(content).length) *
+                    100 +
+                    "%"}
+                </span>
               </button>
               <div className="panel">
                 <a target={"_blank"} href={item.link}>
                   {item.link}
                 </a>
+                <div style={{ color: "aliceblue", fontFamily: "Monaco" }}>
+                  Copied Content: {item.copied}
+                </div>
               </div>
             </div>
           );
