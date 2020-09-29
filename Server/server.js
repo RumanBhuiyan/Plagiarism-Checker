@@ -62,12 +62,14 @@ app.post("/diffwords", (req, res) => {
 app.post("/searchonline", (req, response) => {
   let searchItem = `https://www.google.com/search?q=${req.body.text}`;
   let sentItems = [];
+  let keepLinks = [];
 
   searchEngine(searchItem)
     .then((res) => {
       let $ = cheerio.load(res.body);
       let allAnchorTags = $("a");
       let extractedLinks = [];
+
       for (let i = 0; i < allAnchorTags.length; i++) {
         let keep = queryString.parse(allAnchorTags[i].attribs.href);
         let link = Object.values(keep)[0];
@@ -75,58 +77,62 @@ app.post("/searchonline", (req, response) => {
           extractedLinks.push(link);
         }
       }
-      // Removing same links
+      //Removing Same Links
       let finalLinks = extractedLinks.filter((item, index) => {
         return extractedLinks.indexOf(item) === index;
       });
-      //Scaning results from Google and assigning to sentItems[]
-      for (let i = 0; i < 10; i++) {
-        try {
-          if (!isImageUrl(finalLinks[i])) {
-            setTimeout(() => {
-              textract.fromUrl(finalLinks[i], (error, text) => {
-                if (error) {
-                  console.log(error);
-                } else {
-                  if (text.length !== 0 && text.includes(req.body.text)) {
-                    let object = {
-                      content: req.body.text,
-                      link: finalLinks[i],
-                      copied: req.body.text,
-                    };
-                    sentItems.push(object);
-                    console.log(object);
-                  } else {
-                    let diffResults = jsdiff.diffWords(req.body.text, text);
-                    let copiedpart = "";
-                    for (let i = 0; i < diffResults.length; i++) {
-                      if (Object.keys(diffResults[i]).length === 2) {
-                        copiedpart += diffResults[i].value;
-                      }
-                    }
-                    let object = {
-                      content: req.body.text,
-                      link: finalLinks[i],
-                      copied: copiedpart,
-                    };
-                    sentItems.push(object);
-                    console.log(object);
-                  }
-                }
-              });
-            }, 2000);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
+      // Assigning Final Links to keepLinks[]
       setTimeout(() => {
-        response.send(sentItems);
-      }, 300000);
+        keepLinks = finalLinks;
+      }, 1000);
     })
     .catch((error) => {
       console.log(error);
     });
+
+  setTimeout(() => {
+    for (let i = 0; i < keepLinks.length; i++) {
+      try {
+        if (!isImageUrl(keepLinks[i])) {
+          setTimeout(() => {
+            textract.fromUrl(keepLinks[i], (error, text) => {
+              if (error) {
+                console.log(error);
+              } else {
+                if (text.length !== 0 && text.includes(req.body.text)) {
+                  let object = {
+                    content: req.body.text,
+                    link: keepLinks[i],
+                    copied: queryText,
+                  };
+                  sentItems.push(object);
+                  console.log(object);
+                } else {
+                  let diffResults = jsdiff.diffWords(req.body.text, text);
+                  let copiedpart = "";
+                  for (let i = 0; i < diffResults.length; i++) {
+                    if (Object.keys(diffResults[i]).length === 2) {
+                      copiedpart += diffResults[i].value;
+                    }
+                  }
+                  let object = {
+                    content: req.body.text,
+                    link: keepLinks[i],
+                    copied: copiedpart,
+                  };
+                  sentItems.push(object);
+                  console.log(object);
+                }
+              }
+            });
+          }, 3000);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, 5000);
+  response.send("Running your request......");
 });
 
 app.listen(3001, () => {
