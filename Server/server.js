@@ -83,7 +83,34 @@ app.get("/getlinks", (req, res) => {
   res.send(myLinks);
 });
 
-app.post("/searchonline", (req, res) => {});
+app.get("/searchonline", (req, res) => {
+  const { searchingLink, searchingText } = req.query;
+  let sendingString = "";
+  textract.fromUrl(searchingLink, (error, text) => {
+    if (error) {
+      console.log(error);
+    } else {
+      if (text.includes(searchingText)) {
+        sendingString = "Copied 100% : " + searchingText;
+        res.send(sendingString);
+      } else {
+        let diffResult = jsdiff.diffWords(searchingText, text);
+        let copiedpart = "";
+        for (let i = 0; i < diffResult.length; i++) {
+          if (Object.keys(diffResult[i]).length === 2) {
+            copiedpart += diffResult[i].value;
+          }
+        }
+        let similarity =
+          (
+            voca.words(copiedpart).length / voca.words(searchingText).length
+          ).toFixed(4) * 100;
+        sendingString = "Copied " + similarity + "% " + copiedpart;
+        res.send(sendingString);
+      }
+    }
+  });
+});
 
 app.listen(3001, () => {
   console.log("Server is listening at port 3001");

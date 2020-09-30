@@ -36,6 +36,25 @@ function OnlineChart() {
     }
   };
 
+  const handleCopyClick = (divname, querytext, link) => {
+    axios({
+      method: "get",
+      url: "http://localhost:3001/searchonline",
+      params: {
+        searchingText: querytext,
+        searchingLink: link,
+      },
+    })
+      .then((res) => {
+        setTimeout(() => {
+          document.getElementById(divname).textContent = res.data;
+        }, 3000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   let history = useHistory();
 
   return (
@@ -65,10 +84,22 @@ function OnlineChart() {
                 <a target={"_blank"} href={item}>
                   {item}
                 </a>
-                {/* <div style={{ color: "aliceblue", fontFamily: "Monaco" }}>
-                </div> */}
+                <div
+                  id={`${index}+'copy'`}
+                  style={{ color: "aliceblue", fontFamily: "Monaco" }}
+                ></div>
                 <div className="row justify-content-center text-center">
-                  <button>Copied Part</button>
+                  <button
+                    onClick={() =>
+                      handleCopyClick(
+                        `${index}+'copy'`,
+                        storeLinks[storeLinks.length - 1],
+                        item
+                      )
+                    }
+                  >
+                    Copied Part
+                  </button>
                 </div>
               </div>
             </div>
