@@ -54,18 +54,18 @@ function OnlinePageForm() {
     }, 1000);
   };
 
-  const handleButtonClick = () => {
-    let keeptext = document.getElementById("onlineText").value;
-
+  const sendQuery = () => {
     axios({
-      method: "post",
-      url: "http://localhost:3001/searchonline",
-      data: {
-        text: keeptext,
+      method: "get",
+      url: "http://localhost:3001/googleresponse",
+      params: {
+        text: document.getElementById("onlineText").value,
       },
     })
       .then((res) => {
-        onlineLinks = res.data;
+        setTimeout(() => {
+          onlineLinks = [...res.data];
+        }, 2000);
       })
       .catch((error) => {
         console.log(error);
@@ -97,8 +97,10 @@ function OnlinePageForm() {
           <button
             className="myBtn"
             onClick={() => {
-              handleButtonClick();
-              history.push("/onlinechart");
+              sendQuery();
+              setTimeout(() => {
+                history.push("/onlinechart");
+              }, 2000);
             }}
           >
             Check Plagiarism

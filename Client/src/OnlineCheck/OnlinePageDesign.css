@@ -111,3 +111,12 @@
   border-radius: 12px;
   margin-left: 2rem;
 }
+.panel .row button {
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  margin-top: 5px;
+  color: aliceblue;
+  font-family: Monaco;
+  background: linear-gradient(to left, #3a1c71, #d76d77, #ffaf7b);
+}
