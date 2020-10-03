@@ -55,8 +55,20 @@ function OfflinePageForm() {
           .catch((error) => {
             console.log(error);
           });
+      } else if (file.name.endsWith(".txt")) {
+        let formdata = new FormData();
+        formdata.append("file", file);
+
+        axios
+          .post("http://localhost:3001/txt", formdata)
+          .then((res) => {
+            setFilethings((filesthings) => filesthings + " " + res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
-        //the file might be .txt or code files
+        //the file might be code files
         let file = myFiles[i];
         const reader = new FileReader();
         reader.readAsBinaryString(file);
