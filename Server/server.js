@@ -50,6 +50,7 @@ app.post("/pdf", (req, res) => {
 });
 
 app.post("/txt", (req, res) => {
+  //reads text files for error!!
   try {
     let textFileData = fs.readFileSync(
       Buffer.from(req.files.file.data),
