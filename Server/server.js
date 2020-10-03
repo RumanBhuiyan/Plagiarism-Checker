@@ -8,6 +8,7 @@ const cheerio = require("cheerio");
 const queryString = require("query-string");
 const voca = require("voca");
 const isImageUrl = require("is-image-url");
+const FileReader = require("filereader");
 require("dotenv").config();
 
 //using bodyParser to receive requser body information
@@ -46,6 +47,18 @@ app.post("/pdf", (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+app.post("/txt", (req, res) => {
+  try {
+    let textFileData = fs.readFileSync(
+      Buffer.from(req.files.file.data),
+      "utf-8"
+    );
+    res.send(textFileData);
+  } catch (error) {
+    res.send(error.path);
+  }
 });
 
 app.post("/diffwords", (req, res) => {

@@ -39,6 +39,18 @@ function OnlinePageForm() {
         .catch((error) => {
           console.log(error);
         });
+    } else if (keepFile.name.endsWith(".txt")) {
+      let formdata = new FormData();
+      formdata.append("file", keepFile);
+
+      axios
+        .post("http://localhost:3001/txt", formdata)
+        .then((res) => {
+          searchingText += res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       let file = keepFile;
       const reader = new FileReader();
