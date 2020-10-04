@@ -94,7 +94,7 @@ function OnlinePageForm() {
             rows="5"
             cols="3"
             spellCheck={false}
-            placeholder="Enter Text or upload a Single .txt , .docx,.pdf file"
+            placeholder="Enter Text or upload a Single .txt , .docx,.pdf files for English & .txt,.docx files for Bengali "
           ></textarea>
           <button type="file" className="myBtn">
             <img src={FileIcon} alt="file" width="20" />

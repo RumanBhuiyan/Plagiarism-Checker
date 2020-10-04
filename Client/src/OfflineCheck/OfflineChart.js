@@ -207,9 +207,12 @@ function OfflineChart() {
       <canvas id="globalChart" style={{ backgroundColor: "#3345" }}></canvas>
       <canvas id="barChart" style={{ backgroundColor: "#3345" }}></canvas>
       {/* individuals pie charts  */}
-      {filesNames.map((item) => {
+      {filesNames.map((item, index) => {
         return (
-          <div className="container-fluid justify-content-center individualDiv">
+          <div
+            key={index}
+            className="container-fluid justify-content-center individualDiv"
+          >
             <canvas id={item}></canvas>
             <div className="row justify-content-center text-center">
               <button onClick={() => handleClick(`${item}+copytext`)}>

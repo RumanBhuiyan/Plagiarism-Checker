@@ -97,7 +97,7 @@ function OfflinePageForm() {
 
   const AssignOtherValues = () => {
     //extracting all words and assigning only unique words to encodedKeyValues
-    setFilethings(filesthings.toLocaleLowerCase());
+    //setFilethings(filesthings.toLocaleLowerCase());
     let allWords = voca.words(filesthings);
     for (let i = 0; i < allWords.length; i++) {
       if (encodedKeyValues.indexOf(allWords[i]) === -1) {
@@ -146,8 +146,27 @@ function OfflinePageForm() {
           .catch((error) => {
             console.log(error);
           });
+      } else if (file.name.endsWith(".txt")) {
+        let formdata = new FormData();
+        formdata.append("file", file);
+
+        axios
+          .post("http://localhost:3001/txt", formdata)
+          .then((res) => {
+            filesData.push({ name: file.name, content: res.data });
+
+            let words = voca.words(res.data);
+            let keepValues = [];
+            for (let i = 0; i < words.length; i++) {
+              keepValues.push(encodedKeyValues.indexOf(words[i]));
+            }
+            graphData.push(keepValues);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
-        //the file might be .txt or code files
+        //the file might be  code files
         let file = keepFiles[i];
         const reader = new FileReader();
         reader.readAsBinaryString(file);
@@ -227,7 +246,7 @@ function OfflinePageForm() {
             rows="5"
             cols="3"
             spellCheck={false}
-            placeholder="Upload .txt , .docx,.pdf files"
+            placeholder="For English Upload .txt , .docx,.pdf files For Bengali upload .txt, .docx files"
           ></textarea>
           <button type="file" className="myBtn">
             <img src={FileIcon} alt="file" width="20" />
