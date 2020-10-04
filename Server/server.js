@@ -74,6 +74,8 @@ app.post("/diffwords", (req, res) => {
   for (let i = 0; i < diffResult.length; i++) {
     if (Object.keys(diffResult[i]).length === 2) {
       copiedpart += diffResult[i].value;
+    } else {
+      copiedpart += "..";
     }
   }
   res.send(copiedpart);
