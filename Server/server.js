@@ -27,6 +27,8 @@ app.use(fileUpload());
 //packages for reading docx and pdf files
 const mammoth = require("mammoth");
 const pdf = require("pdf-parse");
+const { encode } = require("punycode");
+const { TextDecoder } = require("util");
 
 app.post("/docx", (req, res) => {
   //Receive the buffer from req.files.file.data & pass it in mammoth
@@ -40,13 +42,17 @@ app.post("/docx", (req, res) => {
 
 app.post("/pdf", (req, res) => {
   //Receive the buffer from req.files.file.data & pass it inside pdf
-  pdf(req.files.file.data)
-    .then((data) => {
-      res.send(data.text);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    pdf(req.files.file.data)
+      .then((data) => {
+        res.send(data.text);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 app.post("/txt", (req, res) => {
